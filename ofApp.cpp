@@ -7,7 +7,7 @@ void ofApp::setup(){
     ofFill();
 
     // create Delaunay triangulation object with 15 random points
-    for (int i=0; i<15; i++){
+    for (int i=0; i<35; i++){
         triangulation.addPoint(ofPoint(ofRandomWidth(), ofRandomHeight())); 
     }
     // calculate the object's triangulation
@@ -31,11 +31,11 @@ void ofApp::update(){
 void ofApp::draw(){
     // from delaunay addon - no documentation
     // debugging - draw triangulation object's wireframe mesh
-    ofPushStyle();
-    ofNoFill();
-    ofSetColor(0);
-    triangulation.triangleMesh.drawWireframe(); 
-    ofPopStyle();
+//    ofPushStyle();
+//    ofNoFill();
+//    ofSetColor(0,50);
+//    triangulation.triangleMesh.drawWireframe();
+//    ofPopStyle();
 
     // iterate through the vector of FunkyTriangles
     // update color value and draw

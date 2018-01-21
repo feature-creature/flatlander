@@ -12,6 +12,7 @@ class FunkyTriangle{
         vector <ofPoint> vertices;
         int greyScale;
         int greyStep;
+        int sinScale;
 
 
         // class functions

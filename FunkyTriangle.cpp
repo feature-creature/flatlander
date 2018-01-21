@@ -34,13 +34,25 @@ void FunkyTriangle::update(){
     //greyScale += greyStep;
     
     // sin transition
-    greyScale = ofMap(sin((ofGetElapsedTimef() + greyScale)/2),-1,1,0,255);
+    sinScale = ofMap(sin((ofGetElapsedTimef()+greyScale)),-1,1,0,255);
 }
 
 void FunkyTriangle::draw(){
-
     ofPushStyle();
-    ofSetColor(greyScale);
+    ofPushMatrix();
+    ofSetColor(sinScale,75);
+    ofTranslate(ofGetWidth()/2,0);
+    ofRotateZ(sinScale*0.25);
+    ofTranslate(0,sin(sinScale*0.02),0);
     ofDrawTriangle(vertices[0],vertices[1],vertices[2]);
+    if(sinScale > 250){
+        ofSetColor(255,150);
+    }else{
+        ofSetColor(255,50);
+    }
+    ofDrawCircle(vertices[0][0],vertices[0][1],10);
+    ofDrawCircle(vertices[1][0],vertices[1][1],10);
+    ofDrawCircle(vertices[2][0],vertices[2][1],10);
+    ofPopMatrix();
     ofPopStyle();
 }
