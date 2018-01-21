@@ -1,6 +1,8 @@
 #pragma once
 
+// order matters here?
 #include "ofMain.h"
+#include "FunkyTriangle.h"
 #include "ofxDelaunay.h"
 
 class ofApp : public ofBaseApp{

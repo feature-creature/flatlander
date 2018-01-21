@@ -57,7 +57,7 @@ void ofApp::draw(){
 // custom function that takes an index value and returns a vector of points for current triangle's coordinates
 // perhaps don't hardcode triangulation into the function.
 // make more abstract
-vector <ofPoint> ofApp::getTriangle(delaunay d, int i){
+vector <ofPoint> ofApp::getTriangle(ofxDelaunay d, int i){
     int pA = d.triangleMesh.getIndex(i*3);
     int pB = d.triangleMesh.getIndex(i*3+1);
     int pC = d.triangleMesh.getIndex(i*3+2);
