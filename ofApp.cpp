@@ -5,10 +5,12 @@ void ofApp::setup(){
     ofBackground(125);
     ofSetLineWidth(3);
 
+    // create Delaunay triangulation object with 15 random points
     for (int i=0; i<15; i++){
-        triangulation.addPoint(ofPoint(ofRandomWidth(), ofRandomHeight())); // add random points in the triangulation object of ofxDelaunay
+        triangulation.addPoint(ofPoint(ofRandomWidth(), ofRandomHeight())); 
     }
-    triangulation.triangulate(); // calculate the triangulation!
+    // calculate the object's triangulation
+    triangulation.triangulate(); 
 }
 
 //--------------------------------------------------------------
@@ -20,39 +22,49 @@ void ofApp::update(){
 void ofApp::draw(){
     ofNoFill();
     ofSetColor(0);
-    triangulation.triangleMesh.drawWireframe(); //draw the wireframe for debugging purposes
+    // from delaunay addon - no documentation
+    // debugging - draw triangulation object's wireframe mesh
+    triangulation.triangleMesh.drawWireframe(); 
 
     ofFill();
 
-    // what's important for us is to loop over the triangles and extract them. In this case
-    // I wrote a helper function getTriangle(int i) which when you loop over all triangles
-    // extracts the 3 points making each one and stores them in a vector called pts.
-    // In this example I use pts to draw a triangle. You should use the data of the points
-    // to create a FunkyTriangle object using your custom FunkyTriangle class. Create a
-    // setup() function in the class to pass it the initial parameters. You'll also need a draw()
-    // and later on an update(). Start by making 1 FunkyTriangle Object that has some behavior (it
-    // goes from black to white and then back to white. Then create a vector of FunkyTriangles.
-    // For the more daring, create a FunkyTriangleSystem so that you hide the vector and these loops
-    // that might get a bit too complex after a while. See the code provided in class. It's very
-    // similar to that, only you don't draw balls, you draw triangles.
+    // create a custom FunkyTriangle class.
+    // You should use the data of the points to create a FunkyTriangle object
+    //
+    // Create a setup() function in the class to pass it the initial parameters. 
+    // You'll also need a draw() and an update().
+    // Start by making 1 FunkyTriangle Object that has some behavior
+    // (it goes from black to white and then back to white.)
+    // Then create a vector of FunkyTriangles.
+    // 
+    // For the more daring, create a FunkyTriangleSystem so that you hide the vector and loops
+    // See the code provided in class.
+    // It's very similar to that, only you don't draw balls, you draw triangles.
 
+
+    // iterate through the triangulation object's calculated triangles
     for (int g=0; g<triangulation.getNumTriangles(); g++){ // loop over the triangles
-        vector <ofPoint> pts = getTriangle(g);             // extract the vector with 3 points
+        // locally store this triangle's 3 vertices as a vector of points
+        vector <ofPoint> pts = getTriangle(triangulation, g);             
+        // set fill to random color
         ofSetColor(ofColor::fromHsb(ofRandom(255),255,150));
-        ofDrawTriangle(pts[0], pts[1], pts[2]);             // use this point to draw a triangle
+        // draw the triangle
+        ofDrawTriangle(pts[0], pts[1], pts[2]);             
     }
 }
 
 //--------------------------------------------------------------
-// custom function that takes an index and returns the coordinates of the triangle we refer to
-vector <ofPoint> ofApp::getTriangle(int i){
-    int pA = triangulation.triangleMesh.getIndex(i*3);
-    int pB = triangulation.triangleMesh.getIndex(i*3+1);
-    int pC = triangulation.triangleMesh.getIndex(i*3+2);
+// custom function that takes an index value and returns a vector of points for current triangle's coordinates
+// perhaps don't hardcode triangulation into the function.
+// make more abstract
+vector <ofPoint> ofApp::getTriangle(delaunay d, int i){
+    int pA = d.triangleMesh.getIndex(i*3);
+    int pB = d.triangleMesh.getIndex(i*3+1);
+    int pC = d.triangleMesh.getIndex(i*3+2);
 
-    ofPoint pointA = triangulation.triangleMesh.getVertex(pA);
-    ofPoint pointB = triangulation.triangleMesh.getVertex(pB);
-    ofPoint pointC = triangulation.triangleMesh.getVertex(pC);
+    ofPoint pointA = d.triangleMesh.getVertex(pA);
+    ofPoint pointB = d.triangleMesh.getVertex(pB);
+    ofPoint pointC = d.triangleMesh.getVertex(pC);
 
     vector <ofPoint> points;
     points.push_back(pointA);

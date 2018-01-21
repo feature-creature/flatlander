@@ -18,8 +18,9 @@ class ofApp : public ofBaseApp{
     void windowResized(int w, int h);
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
-    vector <ofPoint> getTriangle(int i);
     
     ofxDelaunay triangulation;
     int index;
+
+    vector <ofPoint> getTriangle(ofxDelaunay d, int i);
 };
