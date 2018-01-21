@@ -1,6 +1,7 @@
 #pragma once
 
-#include "ofApp.h"
+#include "ofMain.h"
+#include "ofxDelaunay.h"
 
 class FunkyTriangle{
     public:
@@ -8,10 +9,13 @@ class FunkyTriangle{
 
 
         // class variables
-        
+        vector <ofPoint> vertices;
+        int greyScale;
+        int greyStep;
 
 
         // class functions
+        void setup(ofxDelaunay _d, int _i);
         void draw();
         void update();
 };

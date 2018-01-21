@@ -24,5 +24,5 @@ class ofApp : public ofBaseApp{
     ofxDelaunay triangulation;
     int index;
 
-    vector <ofPoint> getTriangle(ofxDelaunay d, int i);
+    vector <FunkyTriangle> triangles;
 };
